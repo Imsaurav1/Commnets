@@ -4,7 +4,7 @@ const cors = require('cors');
 const bodyParser = require('body-parser');
 
 // Connect to MongoDB
-mongoose.connect('mongodb+srv://skjha9th:Saurabhjha@cluster0.ewg8cxv.mongodb.net/Comment?retryWrites=true&w=majority&appName=Cluster0', { useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.connect('mongodb+srv://skjha9th:Saurabhjha@cluster0.ewg8cxv.mongodb.net/Comments?retryWrites=true&w=majority&appName=Cluster0', { useNewUrlParser: true, useUnifiedTopology: true });
 
 const CommentSchema = new mongoose.Schema({
   name: String,
