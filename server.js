@@ -10,7 +10,7 @@ app.use(express.json());
 // MongoDB Connection
 // =======================
 mongoose.connect(
-  'mongodb+srv://skjha9th:Saurabhjha@cluster0.ewg8cxv.mongodb.net/commentsDB?retryWrites=true&w=majority',
+  'system123',
   {
     useNewUrlParser: true,
     useUnifiedTopology: true
@@ -84,4 +84,5 @@ const PORT = process.env.PORT || 5000;
 app.listen(PORT, () =>
   console.log(`Server running on port ${PORT}`)
 );
+
 
