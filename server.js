@@ -9,13 +9,10 @@ app.use(express.json());
 // =======================
 // MongoDB Connection
 // =======================
-mongoose.connect(
-  'system123',
-  {
-    useNewUrlParser: true,
-    useUnifiedTopology: true
-  }
-)
+mongoose.connect(process.env.MONGO_URI, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true
+})
 .then(() => console.log('MongoDB Connected'))
 .catch(err => console.error(err));
 
@@ -29,7 +26,7 @@ const CommentSchema = new mongoose.Schema(
     pageUrl: { type: String, required: true },
     pageTitle: { type: String, required: true }
   },
-  { timestamps: true } // 👈 auto createdAt
+  { timestamps: true }
 );
 
 const Comment = mongoose.model('Comment', CommentSchema);
@@ -61,17 +58,17 @@ app.post('/comments', async (req, res) => {
   }
 });
 
-// GET comments for ONE page only
+// GET comments (by pageTitle OR pageUrl)
 app.get('/comments', async (req, res) => {
   try {
     const { pageTitle } = req.query;
 
-    if (!pageUrl) {
+    if (!pageTitle) {
       return res.status(400).json({ message: 'pageTitle required' });
     }
 
     const comments = await Comment.find({ pageTitle })
-      .sort({ createdAt: -1 }); // 👈 newest first
+      .sort({ createdAt: -1 });
 
     res.json(comments);
   } catch (err) {
@@ -79,10 +76,7 @@ app.get('/comments', async (req, res) => {
   }
 });
 
-// =======================
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () =>
   console.log(`Server running on port ${PORT}`)
 );
-
-
