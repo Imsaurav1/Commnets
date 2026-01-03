@@ -64,13 +64,13 @@ app.post('/comments', async (req, res) => {
 // GET comments for ONE page only
 app.get('/comments', async (req, res) => {
   try {
-    const { pageUrl } = req.query;
+    const { pageTitle } = req.query;
 
     if (!pageUrl) {
-      return res.status(400).json({ message: 'pageUrl required' });
+      return res.status(400).json({ message: 'pageTitle required' });
     }
 
-    const comments = await Comment.find({ pageUrl })
+    const comments = await Comment.find({ pageTitle })
       .sort({ createdAt: -1 }); // 👈 newest first
 
     res.json(comments);
@@ -84,3 +84,4 @@ const PORT = process.env.PORT || 5000;
 app.listen(PORT, () =>
   console.log(`Server running on port ${PORT}`)
 );
+
